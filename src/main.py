@@ -45,7 +45,7 @@ def handle_users():
 
     return "Invalid Method", 404
 
-@app.route('/traindata-01-01-2019', methods=['GET'])
+@app.route('/traindata', methods=['GET'])
 def get_records():
     if request.method == 'GET':
         records = AircraftTrainRecords.query.all()

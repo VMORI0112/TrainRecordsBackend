@@ -22,6 +22,30 @@ class Users(db.Model):
             "lastname": self.lastname,
             "avatar": self.avatar,
         }
+class CourseTable(db.Model):
+    courseNumber = db.Column(db.Integer)
+    category = db.Column(db.String(30)) 
+    descriptionName = db.Column(db.String(60)
+    dataType = db.Column(db.String(10))
+    recurrent = db.Column(db.String(1))
+    hours = db.Column(db.String(3))
+    days = db.Column(db.Decimal(7, 2))
+    hours = db.Column(db.String(3))
+    companyTrainer = db.Column(db.String(6))
+    sta = db.Column(db.String(1))
+   
+    def serialize(self):
+        return {
+            "CourseNumber": self.courseNumber,
+            "Category": self.category,
+            "DescriptionName": self.descriptionName,
+            "DataType": self.dataType,
+            "CourseRecurrence": self.recurrent,
+            "HoursCourse ": self.hours,
+            "DaysCourse": self.days,
+            "CompanyTrainer": self.companyTrainer,
+            "Status": self.sta,
+        }
 
 class TrainData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
