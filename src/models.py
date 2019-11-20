@@ -46,7 +46,30 @@ class CourseTable(db.Model):
             "CompanyTrainer": self.companyTrainer,
             "Status": self.sta,
         }
-
+class TrainingData(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    courseNumber = db.Column(db.Integer)
+    hasRecu = db.Column(db.String(1)) 
+    dateAtten = db.Column(db.Datetime)
+    ceCo = db.Column(db.String(12))
+    trainingGroup = db.Column(db.String(30))
+    name = db.Column(db.String(40))
+    sta = db.Column(db.String(1))
+    a&P = db.Column(db.Integer)
+    
+    def serialize(self):
+        return {
+            "id": self.id,
+            "CourseNumber": self.courseNumber,
+            "HasRecurrent": self.hasRecu,
+            "DateAtten": self.dateAtten,
+            "CostCenter": self.ceCo,
+            "TrainingGroup": self.trainingGroup,
+            "Name": self.name,
+            "Status": self.sta,
+            "A&PLicense": self.a&P,
+            "InstrutorInitials": self.insIni,
+        }
 class TrainData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     courseNumber = db.Column(db.Integer)
@@ -71,7 +94,7 @@ class TrainData(db.Model):
         return {
             "id": self.id,
             "CourseNumber": self.courseNumber,
-            "HasRecu": self.hasRecu,
+            "HasRecurrent": self.hasRecu,
             "DescriptionName": self.descriptionName,
             "DateAtten": self.dateAtten,
             "CostCenter": self.ceCo,

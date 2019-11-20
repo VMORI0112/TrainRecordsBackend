@@ -7,7 +7,7 @@ from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
 from utils import APIException, generate_sitemap
-from models import db, Users, AircraftTrainRecords
+from models import db, Users, CourseTable, TrainingData, TrainData
 from flask_jwt_simple import JWTManager, jwt_required, create_jwt
 
 app = Flask(__name__)
@@ -45,10 +45,10 @@ def handle_users():
 
     return "Invalid Method", 404
 
-@app.route('/traindata', methods=['GET'])
+@app.route('/trainingdata', methods=['GET'])
 def get_records():
     if request.method == 'GET':
-        records = AircraftTrainRecords.query.all()
+        records = TrainingData.query.all()
 
         if not records:
             return jsonify({'msg':'Record not found'}), 404
