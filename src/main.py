@@ -45,6 +45,18 @@ def handle_users():
 
     return "Invalid Method", 404
 
+@app.route('/coursetable', methods=['GET'])
+def get_records():
+    if request.method == 'GET':
+        records = CourseTable.query.all()
+
+        if not records:
+            return jsonify({'msg':'Record not found'}), 404
+
+        return jsonify( [x.serialize() for x in records] ), 200
+
+    return "Invalid Method", 404    
+
 @app.route('/trainingdata', methods=['GET'])
 def get_records():
     if request.method == 'GET':
@@ -55,7 +67,19 @@ def get_records():
 
         return jsonify( [x.serialize() for x in records] ), 200
 
-    return "Invalid Method", 404    
+    return "Invalid Method", 404   
+
+@app.route('/traindata', methods=['GET'])
+def get_records():
+    if request.method == 'GET':
+        records = TrainData.query.all()
+
+        if not records:
+            return jsonify({'msg':'Record not found'}), 404
+
+        return jsonify( [x.serialize() for x in records] ), 200
+
+    return "Invalid Method", 404        
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
