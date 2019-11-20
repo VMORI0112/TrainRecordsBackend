@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 class Users(db.Model):
-    bp = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     firstname = db.Column(db.String(120), nullable=False)
     lastname = db.Column(db.String(120) )
@@ -21,11 +21,10 @@ class Users(db.Model):
             "firstname": self.firstname,
             "lastname": self.lastname,
             "avatar": self.avatar,
-            "wallet": self.wallet
         }
 
 class AircraftTrainRecords(db.Model):
-    bp = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     coursenumber = db.Column(db.Integer)
     hasrecu = db.Column(db.String(1)) 
     
