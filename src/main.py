@@ -45,18 +45,6 @@ def handle_users():
 
     return "Invalid Method", 404
 
-@app.route('/courses', methods=['GET'])
-def get_courses():
-
-    if request.method == 'GET':
-        courses = CourseTable.query.all()
-
-        if not courses:
-            return jsonify({'msg':'Courses not found'}), 404
-
-        return jsonify( [x.serialize() for x in courses] ), 200
-
-    return "Invalid Method", 404
 
 @app.route('/login', methods=['POST'])
 def handle_login():
