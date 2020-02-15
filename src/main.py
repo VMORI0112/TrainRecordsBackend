@@ -7,7 +7,7 @@ from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
 from utils import APIException, generate_sitemap, sha256
-from models import db, Users, CourseTable, TrainingData, TrainData
+from models import db, Users, CourseTable, TrainingData, TrainData, datarecord
 from flask_jwt_simple import JWTManager, jwt_required, create_jwt
 
 app = Flask(__name__)
@@ -125,17 +125,32 @@ def get_trainingdata():
 
     return "Invalid Method", 404   
 
-@app.route('/traindata', methods=['GET'])
+@app.route('/traindata', methods=['POST'])
 def get_traindata():
-    if request.method == 'GET':
-        records = TrainData.query.all()
+    if request.method == 'POST':
+
+        body = request.get_json()
+        records = datarecord.query.filter_by(employerId=body['employerId']).order_by(datarecord.dateAtten.desc())
 
         if not records:
             return jsonify({'msg':'Record not found'}), 404
 
         return jsonify( [x.serialize() for x in records] ), 200
 
-    return "Invalid Method", 404        
+    return "Invalid Method", 404  
+
+# @app.route('/traindata', methods=['GET'])
+# def get_traindata():
+#     if request.method == 'GET':
+#         #records = datarecord.query.all()
+#         records = datarecord.query.filter_by(name="Mori, Victor Fernando ").order_by(datarecord.dateAtten)
+
+#         if not records:
+#             return jsonify({'msg':'Record not found'}), 404
+
+#         return jsonify( [x.serialize() for x in records] ), 200
+
+#     return "Invalid Method", 404        
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
