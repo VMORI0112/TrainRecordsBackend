@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: bc237bf18804
+Revision ID: cc45762d48e0
 Revises: 
-Create Date: 2019-12-21 21:55:50.442145
+Create Date: 2020-03-31 21:03:02.596961
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'bc237bf18804'
+revision = 'cc45762d48e0'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,6 +29,28 @@ def upgrade():
     sa.Column('companyTrainer', sa.String(length=6), nullable=True),
     sa.Column('sta', sa.String(length=1), nullable=True),
     sa.PrimaryKeyConstraint('courseNumber')
+    )
+    op.create_table('datarecord',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('employerId', sa.Integer(), nullable=True),
+    sa.Column('courseNumber', sa.Integer(), nullable=True),
+    sa.Column('hasRecu', sa.String(length=1), nullable=True),
+    sa.Column('descriptionName', sa.String(length=60), nullable=True),
+    sa.Column('dateAtten', sa.String(length=30), nullable=True),
+    sa.Column('ceCo', sa.String(length=12), nullable=True),
+    sa.Column('trainingGroup', sa.String(length=30), nullable=True),
+    sa.Column('name', sa.String(length=40), nullable=True),
+    sa.Column('hours', sa.String(length=3), nullable=True),
+    sa.Column('days', sa.Float(precision=7, asdecimal=2), nullable=True),
+    sa.Column('sta', sa.String(length=1), nullable=True),
+    sa.Column('anp', sa.Integer(), nullable=True),
+    sa.Column('insIni', sa.String(length=3), nullable=True),
+    sa.Column('recurrent', sa.String(length=1), nullable=True),
+    sa.Column('oneYearExpire', sa.String(length=30), nullable=True),
+    sa.Column('twoYearExpire', sa.String(length=30), nullable=True),
+    sa.Column('threeYearExpire', sa.String(length=30), nullable=True),
+    sa.Column('fourYearExpire', sa.String(length=30), nullable=True),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('train_data',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -82,5 +104,6 @@ def downgrade():
     op.drop_table('users')
     op.drop_table('training_data')
     op.drop_table('train_data')
+    op.drop_table('datarecord')
     op.drop_table('course_table')
     # ### end Alembic commands ###
