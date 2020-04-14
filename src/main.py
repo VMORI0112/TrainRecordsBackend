@@ -139,7 +139,7 @@ def get_traindata():
 
     return "Invalid Method", 404  
 
-@app.route('/deltraindata', methods=['DELETE'])
+@app.route('/deltraindata', methods=['PUT', 'GET', 'DELETE'])
 def del_traindata():
     if request.method == 'DELETE':
 
