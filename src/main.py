@@ -62,8 +62,8 @@ def handle_login():
               'email': user.email,
               'firstname': user.firstname,
               'lastname': user.lastname,
-              'avatar': user.avatar,
-              'wallet': user.wallet
+              'avatar': user.avatar
+            
               })
 
 @app.route('/register', methods=['POST'])
