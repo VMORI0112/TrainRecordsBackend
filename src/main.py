@@ -139,6 +139,56 @@ def get_traindata():
 
     return "Invalid Method", 404  
 
+@app.route('/deltraindata', methods=['DELETE'])
+def del_traindata():
+    if request.method == 'DELETE':
+
+        body = request.get_json()
+        trainrecord = TrainData.query.filter_by(employerId=body['employerId'], courseNumber=body['courseNumber'])).first()
+
+        if not trainrecord:
+            return jsonify({'msg':'Record not found'}), 404
+
+        return jsonify( [x.serialize() for x in trainrecord] ), 200
+
+    return "Invalid Method", 404  
+
+
+@app.route('/addrecord', methods=['POST'])
+def add_traindata():
+
+    body = request.get_json()
+
+    db.session.add(Traindata(
+        employerId = body['employerId'],
+        courseNumber = body['courseNumber'],
+        hasRecu = body['hasRecu'],
+        descriptionName = body['descriptionName'],
+        dateAtten = body['dateAtten'],
+        ceCo = body['ceCo'],
+        trainingGroup = body['trainingGroup'],
+        name = body['name'],
+        hours = body['hours'],
+        days = body['descriptionName'],
+        dateAtten = body['days'],
+        sta = body['sta'],
+        anp = body['anp'],
+        insIni = body['insIni'],
+        recurrent = body['recurrent'],
+        oneYearExpire = body['oneYearExpire'],
+        twoYearExpire = body['twoYearExpire'],
+        threeYearExpire = body['threeYearExpire'],
+        fourYearExpire = body['fourYearExpire'])
+
+        
+    ))
+    db.session.commit()
+
+    return jsonify({
+        'Added': 'success',
+        'msg': 'Successfully Record added'
+    })    
+
 # @app.route('/traindata', methods=['GET'])
 # def get_traindata():
 #     if request.method == 'GET':

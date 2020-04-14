@@ -73,6 +73,7 @@ class TrainingData(db.Model):
 
 class TrainData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    employerId = db.Column(db.Integer)
     courseNumber = db.Column(db.Integer)
     hasRecu = db.Column(db.String(1)) 
     descriptionName = db.Column(db.String(60))
@@ -94,6 +95,7 @@ class TrainData(db.Model):
     def serialize(self):
         return {
             "id" : self.id,
+            "employerId": self.employerId,
             "courseNumber" : self.courseNumber,
             "hasRecu" : self.hasRecu,
             "descriptionName" : self.descriptionName,
