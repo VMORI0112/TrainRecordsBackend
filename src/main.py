@@ -7,7 +7,7 @@ from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
 from utils import APIException, generate_sitemap, sha256
-from models import db, Users, CourseTable, TrainingData, TrainData, datarecord
+from models import db, Users, CourseTable, TrainingData, train_data, datarecord
 from flask_jwt_simple import JWTManager, jwt_required, create_jwt
 
 app = Flask(__name__)
