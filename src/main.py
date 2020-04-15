@@ -7,7 +7,7 @@ from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
 from utils import APIException, generate_sitemap, sha256
-from models import db, Users, course_table, training_data, train_data, datarecord
+from models import db, Users, CourseTable, TrainingData, TrainData, datarecord
 from flask_jwt_simple import JWTManager, jwt_required, create_jwt
 
 app = Flask(__name__)
@@ -104,7 +104,7 @@ def handle_register():
 @app.route('/coursetable', methods=['GET'])
 def get_coursetable():
     if request.method == 'GET':
-        records = course_table.query.all()
+        records = CourseTable.query.all()
 
         if not records:
             return jsonify({'msg':'Record not found'}), 404
@@ -116,7 +116,7 @@ def get_coursetable():
 @app.route('/trainingdata', methods=['GET'])
 def get_trainingdata():
     if request.method == 'GET':
-        records = training_data.query.all()
+        records = TrainingData.query.all()
 
         if not records:
             return jsonify({'msg':'Record not found'}), 404
@@ -175,7 +175,7 @@ def add_traindata():
 
     body = request.get_json()
 
-    db.session.add(train_data(
+    db.session.add(TrainData(
         employerId = body['employerId'],
         courseNumber = body['courseNumber'],
         hasRecu = body['hasRecu'],
