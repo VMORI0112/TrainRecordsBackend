@@ -139,7 +139,23 @@ def get_traindata():
 
     return "Invalid Method", 404  
 
-# @app.route('/deltraindata', methods=['PUT', 'GET', 'DELETE'])
+
+# GET request
+#     if request.method == 'GET':
+#         user1 = Person.query.get(person_id)
+#         if user1 is None:
+#             raise APIException('User not found', status_code=404)
+#         return jsonify(user1.serialize()), 200
+# DELETE request
+#     if request.method == 'DELETE':
+#         user1 = Person.query.get(person_id)
+#         if user1 is None:
+#             raise APIException('User not found', status_code=404)
+#         db.session.delete(user1)
+#         return "ok", 200
+#     return "Invalid Method", 404    
+
+# @app.route('/deltraindata', methods=['GET', 'DELETE'])
 # def del_traindata():
 #     if request.method == 'DELETE':
 
