@@ -139,7 +139,11 @@ def get_traindata():
 
     return "Invalid Method", 404  
 
-
+# @app.route('/person/<int:person_id>', methods=['PUT', 'GET', 'DELETE'])
+# def get_single_person(person_id):
+#     """
+#     Single person
+#     """
 # GET request
 #     if request.method == 'GET':
 #         user1 = Person.query.get(person_id)
@@ -155,10 +159,9 @@ def get_traindata():
 #         return "ok", 200
 #     return "Invalid Method", 404    
 
-# @app.route('/deltraindata', methods=['GET', 'DELETE'])
+# @app.route('/deltraindata/<int:employerId>', methods=['GET', 'DELETE'])
 # def del_traindata():
-#     if request.method == 'DELETE':
-
+#     if request.method == 'GET':
 #         
 #         trainrecord = TrainData.query.filter_by(employerId=body['employerId'], courseNumber=body['courseNumber'])).first()
 
@@ -175,7 +178,7 @@ def add_traindata():
 
     body = request.get_json()
 
-    db.session.add(TrainData(
+    db.session.add(datarecord(
         employerId = body['employerId'],
         courseNumber = body['courseNumber'],
         hasRecu = body['hasRecu'],
@@ -185,7 +188,7 @@ def add_traindata():
         trainingGroup = body['trainingGroup'],
         name = body['name'],
         hours = body['hours'],
-        days = body['descriptionName'],
+        days = body['days'],
         sta = body['sta'],
         anp = body['anp'],
         insIni = body['insIni'],
