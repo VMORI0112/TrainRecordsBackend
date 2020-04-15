@@ -143,7 +143,7 @@ def get_traindata():
 # def del_traindata():
 #     if request.method == 'DELETE':
 
-#         body = request.get_json()
+#         
 #         trainrecord = TrainData.query.filter_by(employerId=body['employerId'], courseNumber=body['courseNumber'])).first()
 
 #         if not trainrecord:
@@ -159,7 +159,7 @@ def add_traindata():
 
     body = request.get_json()
 
-    db.session.add(Traindata(
+    db.session.add(TrainData(
         employerId = body['employerId'],
         courseNumber = body['courseNumber'],
         hasRecu = body['hasRecu'],
