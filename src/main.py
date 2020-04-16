@@ -7,7 +7,7 @@ from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
 from utils import APIException, generate_sitemap, sha256
-from models import db, Users, CourseTable, TrainingData, TrainData, datarecord
+from models import db, Users, CourseTable, TrainingData, datarecord
 from flask_jwt_simple import JWTManager, jwt_required, create_jwt
 
 app = Flask(__name__)
@@ -45,6 +45,18 @@ def handle_users():
 
     return "Invalid Method", 404
 
+@app.route('/getrecords', methods=['GET'])
+def handle_records():
+
+    if request.method == 'GET':
+        records = datarecord.query.all()
+
+        if not records:
+            return jsonify({'msg':'User not found'}), 404
+
+        return jsonify( [x.serialize() for x in records] ), 200
+
+    return "Invalid Method", 404
 
 @app.route('/login', methods=['POST'])
 def handle_login():
@@ -125,7 +137,7 @@ def get_trainingdata():
 
     return "Invalid Method", 404   
 
-@app.route('/traindata', methods=['POST'])
+@app.route('/datarecord', methods=['POST'])
 def get_traindata():
     if request.method == 'POST':
 
@@ -159,12 +171,10 @@ def get_traindata():
 #         return "ok", 200
 #     return "Invalid Method", 404    
 
-# @app.route('/deltraindata/<int:employerId>', methods=['GET', 'DELETE'])
+# @app.route('/deldatarecord/<int:employerId>', methods=['GET', 'DELETE'])
 # def del_traindata():
 #     if request.method == 'GET':
-#         
-#         trainrecord = TrainData.query.filter_by(employerId=body['employerId'], courseNumber=body['courseNumber'])).first()
-
+#         trainrecord = datarecord.query.get(employerId)
 #         if not trainrecord:
 #             return jsonify({'msg':'Record not found'}), 404
 
