@@ -149,7 +149,24 @@ def get_traindata():
 
         return jsonify( [x.serialize() for x in records] ), 200
 
-    return "Invalid Method", 404  
+    return "Invalid Method", 404 
+
+@app.route('/deltraindata/<int:employ_id>/<int:course_number>', methods=['DELETE'])
+def del_traindata(employ_id, course_number):
+    if request.method == 'DELETE':
+        # course = datarecord.query.get(employ_id, course_number)
+        course = datarecord.query.filter_by(employerId=employ_id, courseNumber=course_number).first()
+        # print("#####",course['courseNumber'])
+       
+
+       # if not records:
+       #     return jsonify({'msg':'Record not found'}), 404
+
+        db.session.delete(course)
+        return "ok", 200
+
+    return "Invalid Method", 404 
+
 
 # @app.route('/person/<int:person_id>', methods=['PUT', 'GET', 'DELETE'])
 # def get_single_person(person_id):
