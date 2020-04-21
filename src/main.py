@@ -137,7 +137,7 @@ def get_trainingdata():
 
     return "Invalid Method", 404   
 
-@app.route('/datarecord', methods=['POST'])
+@app.route('/traindata', methods=['POST'])
 def get_traindata():
     if request.method == 'POST':
 
