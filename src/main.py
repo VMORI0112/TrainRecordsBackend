@@ -153,52 +153,62 @@ def get_traindata():
 
 @app.route('/deltraindata/<int:employ_id>/<int:course_number>', methods=['DELETE'])
 def del_traindata(employ_id, course_number):
-    if request.method == 'DELETE':
-        # course = datarecord.query.get(employ_id, course_number)
         course = datarecord.query.filter_by(employerId=employ_id, courseNumber=course_number).first()
-        # print("#####",course['courseNumber'])
-       
-
-       # if not records:
-       #     return jsonify({'msg':'Record not found'}), 404
-
         db.session.delete(course)
+        db.session.commit()
         return "ok", 200
 
-    return "Invalid Method", 404 
 
+@app.route('/updatetraindata/<int:employ_id>/<int:course_number>', methods=['PUT'])
+def update_data(employ_id, course_number):
+     
+        body = request.get_json()
+        if body is None:
+            raise APIException("You need to specify the request body as a json object", status_code=400)
+        course = datarecord.query.filter_by(employerId=employ_id, courseNumber=course_number).first()
+        if course is None:
+            raise APIException('User not found', status_code=404)
+        print('$#$', course.courseNumber)
+        if "employerId" in body:
+            course.employerId = body["employerId"]
+        if "courseNumber" in body:
+            course.courseNumber = body["courseNumber"]
+        if "hasRecu" in body:
+            course.hasRecu = body["hasRecu"]
+        if "descriptionName" in body:
+            course.descriptionName = body["descriptionName"]
+        if "dateAtten" in body:
+            course.dateAtten = body["dateAtten"]
+        if "ceCo" in body:
+            course.ceCo = body["ceCo"]
+        if "trainingGroup" in body:
+            course.trainingGroup = body["trainingGroup"]    
+        if "name" in body:
+            course.name = body["name"]
+        if "hours" in body:
+            course.hours = body["hours"]
+        if "days" in body:
+            course.days = body["days"]
+        if "sta" in body:
+            course.sta = body["sta"]
+        if "anp" in body:
+            course.anp = body["anp"]
+        if "insIni" in body:
+            course.insIni = body["insIni"]
+        if "recurrent" in body:
+            course.recurrent = body["recurrent"]   
+        if "oneYearExpire" in body:
+            course.oneYearExpire = body["oneYearExpire"]
+        if "twoYearExpire" in body:
+            course.twoYearExpire = body["twoYearExpire"]
+        if "threeYearExpire" in body:
+            course.threeYearExpire = body["threeYearExpire"]
+        if "fourYearExpire" in body:
+            course.fourYearExpire = body["fourYearExpire"]  
 
-# @app.route('/person/<int:person_id>', methods=['PUT', 'GET', 'DELETE'])
-# def get_single_person(person_id):
-#     """
-#     Single person
-#     """
-# GET request
-#     if request.method == 'GET':
-#         user1 = Person.query.get(person_id)
-#         if user1 is None:
-#             raise APIException('User not found', status_code=404)
-#         return jsonify(user1.serialize()), 200
-# DELETE request
-#     if request.method == 'DELETE':
-#         user1 = Person.query.get(person_id)
-#         if user1 is None:
-#             raise APIException('User not found', status_code=404)
-#         db.session.delete(user1)
-#         return "ok", 200
-#     return "Invalid Method", 404    
-
-# @app.route('/deldatarecord/<int:employerId>', methods=['GET', 'DELETE'])
-# def del_traindata():
-#     if request.method == 'GET':
-#         trainrecord = datarecord.query.get(employerId)
-#         if not trainrecord:
-#             return jsonify({'msg':'Record not found'}), 404
-
-#         return jsonify( [x.serialize() for x in trainrecord] ), 200
-
-#     return "Invalid Method", 404  
-
+        db.session.commit()
+        return jsonify(course.serialize()), 200
+   
 
 @app.route('/addrecord', methods=['POST'])
 def add_traindata():
@@ -233,18 +243,6 @@ def add_traindata():
         'msg': 'Successfully Record added'
     })    
 
-# @app.route('/traindata', methods=['GET'])
-# def get_traindata():
-#     if request.method == 'GET':
-#         #records = datarecord.query.all()
-#         records = datarecord.query.filter_by(name="Mori, Victor Fernando ").order_by(datarecord.dateAtten)
-
-#         if not records:
-#             return jsonify({'msg':'Record not found'}), 404
-
-#         return jsonify( [x.serialize() for x in records] ), 200
-
-#     return "Invalid Method", 404        
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
