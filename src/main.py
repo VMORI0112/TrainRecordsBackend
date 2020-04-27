@@ -128,13 +128,10 @@ def get_coursetable():
 @app.route('/trainingdata', methods=['GET'])
 def get_trainingdata():
     if request.method == 'GET':
-        records = TrainingData.query.all()
-
+        records = datarecord.query.all()
         if not records:
             return jsonify({'msg':'Record not found'}), 404
-
         return jsonify( [x.serialize() for x in records] ), 200
-
     return "Invalid Method", 404   
 
 @app.route('/traindata', methods=['POST'])
@@ -150,6 +147,15 @@ def get_traindata():
         return jsonify( [x.serialize() for x in records] ), 200
 
     return "Invalid Method", 404 
+
+@app.route('/gettraindata', methods=['GET'])
+def get_traindat():
+    if request.method == 'GET':
+        records = datarecord.query.all()
+        if not records:
+            return jsonify({'msg':'Record not found'}), 404
+        return jsonify( [x.serialize() for x in records] ), 200
+    return "Invalid Method", 404   
 
 @app.route('/deltraindata/<int:employ_id>/<int:course_number>', methods=['DELETE'])
 def del_traindata(employ_id, course_number):
