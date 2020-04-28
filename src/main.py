@@ -147,6 +147,7 @@ def get_traindata():
         return jsonify( [x.serialize() for x in records] ), 200
 
     return "Invalid Method", 404 
+    
 @app.route('/traindata_update', methods=['POST'])
 def get_traindata_update():
     if request.method == 'POST':
@@ -161,6 +162,7 @@ def get_traindata_update():
         return jsonify(records.serialize()), 200
 
     return "Invalid Method", 404 
+
 @app.route('/gettraindata', methods=['GET'])
 def get_traindat():
     if request.method == 'GET':
