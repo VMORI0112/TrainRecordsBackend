@@ -147,7 +147,20 @@ def get_traindata():
         return jsonify( [x.serialize() for x in records] ), 200
 
     return "Invalid Method", 404 
+@app.route('/traindata_update', methods=['POST'])
+def get_traindata_update():
+    if request.method == 'POST':
 
+        body = request.get_json()
+        records = datarecord.query.filter_by(employerId=body['employerId'], courseNumber=body['courseNumber']).first()
+
+        if not records:
+            return jsonify({'msg':'Record not found'}), 404
+
+        # return jsonify( [x.serialize() for x in records] ), 200
+        return jsonify(records.serialize()), 200
+
+    return "Invalid Method", 404 
 @app.route('/gettraindata', methods=['GET'])
 def get_traindat():
     if request.method == 'GET':
